@@ -117,15 +117,15 @@ include:
 # ==============================================================
 
 review-mission-clock-backend:
-  # Overrides only the execution requirements
   stage: review
   script:
     - cd upstream
     - execute
   needs:
-    - job: submit_sbom_to_overwatch
+    # Use the exact names from your GitLab Pipeline Graph!
+    - job: submit_sbom_to_overwatch-mission-clock-backend
       artifacts: true
-    - job: authorization
+    - job: authorization-mission-clock-backend
       artifacts: true
 
 review-mission-clock-frontend:
@@ -134,7 +134,8 @@ review-mission-clock-frontend:
     - cd upstream
     - execute
   needs:
-    - job: submit_sbom_to_overwatch
+    # Use the exact names from your GitLab Pipeline Graph!
+    - job: submit_sbom_to_overwatch-mission-clock-frontend
       artifacts: true
-    - job: authorization
+    - job: authorization-mission-clock-frontend
       artifacts: true

@@ -9,7 +9,7 @@ variables:
       - dev
       - test
       - prod
-    value: dev
+    value: test
   EXPEDITION:
     description: Which expedition do you want to target?
     options:

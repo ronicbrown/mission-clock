@@ -116,19 +116,23 @@ include:
 # 4. JOB OVERRIDES (Fixing Execution Order)
 # ==============================================================
 
-# We override the backend review job to run ONLY after dependencies succeed
 review-mission-clock-backend:
-  # This pulls the script defined in the original component job
-  script: !reference [review-mission-clock-backend, script]
+  # Overrides only the execution requirements
+  stage: review
+  script:
+    - cd upstream
+    - execute
   needs:
     - job: submit_sbom_to_overwatch
       artifacts: true
     - job: authorization
       artifacts: true
 
-# We override the frontend review job as well
 review-mission-clock-frontend:
-  script: !reference [review-mission-clock-frontend, script]
+  stage: review
+  script:
+    - cd upstream
+    - execute
   needs:
     - job: submit_sbom_to_overwatch
       artifacts: true

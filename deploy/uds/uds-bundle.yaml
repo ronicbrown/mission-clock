@@ -1,0 +1,10 @@
+kind: UDSBundle
+metadata:
+  name: mission-clock-bundle
+  version: v0.0.1
+packages:
+  # Tells UDS to grab the Zarf package we built and deploy it
+  - name: mission-clock-zarf
+    # Points to the secure Azure Container Registry where the pipeline stored it
+    repository: cazcaravandecoreacr.azurecr.us/ai2c/caravan/mission-clock
+    ref: v0.0.1

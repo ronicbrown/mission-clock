@@ -1,0 +1,45 @@
+# Specifies the version of the Kubernetes API to use for Deployments
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # The unique name of this deployment resource inside the cluster
+  name: frontend-deployment
+spec:
+  # How many identical copies (pods) of the frontend you want running
+  replicas: 1
+  
+  # Tells the deployment how to find the pods it manages
+  selector:
+    matchLabels:
+      app: frontend
+      
+  # The blueprint (template) for creating the actual pods
+  template:
+    metadata:
+      # These labels must match the selector above so they link together
+      labels:
+        app: frontend
+    spec:
+      containers:
+        # Define the frontend container specifications
+        - name: frontend-container
+          
+          # The exact image location inside the secure AI2C Azure Container Registry
+          # This must match what you put in the Zarf.yaml file
+          image: cazcaravandecoreacr.azurecr.us/ai2c/caravan/mission-clock/frontend:v0.0.1
+          
+          ports:
+            # The port we exposed in our frontend Dockerfile
+            # Note: We use 8080 because DoD IL5 requires unprivileged containers (cannot use port 80)
+            - containerPort: 8080
+          
+          # (Optional but recommended) Resource limits prevent the app from hogging cluster memory
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "250m"
+
+              

@@ -1,0 +1,27 @@
+# Assigns this app to the Expedition 0 platform
+organization: expedition-0
+
+# Assigns review/approval authority to the AI2C team
+security_group: ai2c
+
+# Specifies the target environment (dictates which security thresholds apply)
+deployment_level: DEVELOPMENT
+
+# Defines the main application structure and tells the pipeline where to find Zarf/UDS files
+mission-clock:
+  project_type: sdd
+  zarf_directory: deploy/zarf
+  uds_directory: deploy/uds
+
+# Tells the scanner where the backend Dockerfile is and that it runs persistently
+mission-clock-backend:
+  project_type: container
+  dockerfile_folder: backend
+  container_lifespan: PERSISTENT
+  connection_context: INTERNAL
+
+# Tells the scanner where the frontend Dockerfile is
+mission-clock-frontend:
+  project_type: container
+  dockerfile_folder: frontend
+  container_lifespan: PERSISTENT

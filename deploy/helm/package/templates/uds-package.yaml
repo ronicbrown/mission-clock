@@ -1,0 +1,28 @@
+apiVersion: uds.dev/v1alpha1
+kind: Package
+metadata:
+  name: mission-clock-package
+  namespace: mission-clock
+spec:
+  # Network policies to allow traffic in and out of your app
+  network:
+    expose:
+      # Exposes the frontend Helm service to the outside world
+      - service: frontend-service  
+        selector:
+          app: frontend
+        # Creates the URL: missionclock.dev.ai.army.mil
+        host: missionclock         
+        port: 8080
+    allow:
+      # Allows the frontend pod to talk to the backend pod inside the cluster
+      - description: "Allow intra-namespace communication"
+        direction: IntraNamespace
+  
+  # Sets up Single Sign-On (SSO) for the application
+  sso:
+    - name: Mission Clock SSO
+      clientId: missionclock
+      # Where SSO should redirect users after they log in successfully
+      redirectUris:
+        - "https://missionclock.dev.ai.army.mil/success"

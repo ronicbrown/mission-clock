@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Title that appears in the browser tab -->
+    <title>Mission Clock</title>
+    <!-- Basic styling to center the text and make it look clean -->
+    <style>body { font-family: Arial, sans-serif; text-align: center; margin-top: 20%; background-color: #f4f4f9; }</style>
+</head>
+<body>
+    <h1>Zulu Mission Clock</h1>
+    
+    <!-- This is the placeholder text that JavaScript will overwrite -->
+    <h2 id="clock">Syncing...</h2>
+    
+    <!-- JavaScript to update the time -->
+    <script>
+        // Set an interval to run this function every 1000 milliseconds (1 second)
+        setInterval(() => {
+            // Update the HTML element with the id 'clock' to show the current UTC string
+            document.getElementById('clock').innerText = new Date().toUTCString();
+        }, 1000);
+    </script>
+</body>
+</html>

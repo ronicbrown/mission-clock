@@ -1,0 +1,114 @@
+# ---------------------------------------------------------------------------
+# UI VARIABLES
+# These create drop-down menus in the GitLab UI when you run a pipeline manually.
+# ---------------------------------------------------------------------------
+variables:
+  ENVIRONMENT:
+    description: Which environment do you want to target?
+    options:
+      - dev
+      - test
+      - prod
+    value: dev
+  EXPEDITION:
+    description: Which expedition do you want to target?
+    options:
+      - "0"
+    value: "0"
+  UDS_BUNDLE_TASK:
+    description: What do you want to do with your UDS bundle?
+    options:
+      - nothing # Default: just runs build/scan/deliver.
+      - deploy  # Select this when you are ready to push to the AKS cluster!
+      - remove
+    value: nothing
+
+# ---------------------------------------------------------------------------
+# PIPELINE STAGES
+# Defines the order of operations for the Army DevSecOps process.
+# ---------------------------------------------------------------------------
+stages:
+  - pre-build
+  - pre-test
+  - build
+  - post-test
+  - review
+  - clean
+  - deliver
+  - deploy
+  - remove
+
+include:
+  # ==============================================================
+  # 1. BACKEND CONTAINER PIPELINES
+  # ==============================================================
+  
+  # CI/CD: Scans the backend container for vulnerabilities (Review Stage)
+  - component: $CI_SERVER_FQDN/cdso/cdso/review@main
+    rules:
+      - if: $UDS_BUNDLE_TASK != "deploy" && $UDS_BUNDLE_TASK != "remove"
+    inputs:
+      name: mission-clock-backend
+      pipeline_type: application-container
+      cdso_config_path: cdso_config.yml
+
+  # CI/CD: Pushes the backend container to the Azure Container Registry (Deliver Stage)
+  - component: $CI_SERVER_FQDN/ai2c/caravan/pipelines/deliver@main
+    rules:
+      - if: $UDS_BUNDLE_TASK != "deploy" && $UDS_BUNDLE_TASK != "remove"
+    inputs:
+      name: mission-clock-backend
+      pipeline_type: container
+      expedition: 0
+      environment: dev
+      cdso_config_path: cdso_config.yml
+
+  # ==============================================================
+  # 2. FRONTEND CONTAINER PIPELINES
+  # ==============================================================
+  
+  # CI/CD: Scans the frontend container for vulnerabilities (Review Stage)
+  - component: $CI_SERVER_FQDN/cdso/cdso/review@main
+    rules:
+      - if: $UDS_BUNDLE_TASK != "deploy" && $UDS_BUNDLE_TASK != "remove"
+    inputs:
+      name: mission-clock-frontend
+      pipeline_type: application-container
+      cdso_config_path: cdso_config.yml
+
+  # CI/CD: Pushes the frontend container to the Azure Container Registry (Deliver Stage)
+  - component: $CI_SERVER_FQDN/ai2c/caravan/pipelines/deliver@main
+    rules:
+      - if: $UDS_BUNDLE_TASK != "deploy" && $UDS_BUNDLE_TASK != "remove"
+    inputs:
+      name: mission-clock-frontend
+      pipeline_type: container
+      expedition: 0
+      environment: dev
+      cdso_config_path: cdso_config.yml
+
+  # ==============================================================
+  # 3. UDS BUNDLE DEPLOYMENT PIPELINES
+  # ==============================================================
+  
+  # CI/CD: Deploys the full UDS Bundle to the cluster (Runs ONLY when selected in UI)
+  - component: $CI_SERVER_FQDN/ai2c/caravan/pipelines/deploy@main
+    rules:
+      - if: $UDS_BUNDLE_TASK == "deploy"
+    inputs:
+      name: mission-clock-deploy
+      pipeline_type: bundle
+      expedition: 0
+      environment: dev
+      cdso_config_path: cdso_config.yml
+
+  # CI/CD: Removes the UDS Bundle from the cluster (Runs ONLY when selected in UI)
+  - component: $CI_SERVER_FQDN/ai2c/caravan/pipelines/remove@main
+    rules:
+      - if: $UDS_BUNDLE_TASK == "remove"
+    inputs:
+      name: mission-clock-deploy
+      pipeline_type: bundle
+      expedition: 0
+      environment: dev
+      cdso_config_path: cdso_config.yml

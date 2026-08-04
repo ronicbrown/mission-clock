@@ -1,0 +1,16 @@
+# Services provide a stable internal IP and networking rule for your pods
+apiVersion: v1
+kind: Service
+metadata:
+  # MUST MATCH the 'service' name you declared in spec.network.expose in uds-package.yaml
+  name: frontend-service
+spec:
+  # Maps the traffic to the pods with this label (our frontend deployment)
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      # The port the service listens on inside the cluster
+      port: 8080
+      # The target port on the actual container (matches our deployment containerPort)
+      targetPort: 8080

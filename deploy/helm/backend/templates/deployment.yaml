@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # The name of this specific deployment in Kubernetes
+  name: backend-deployment
+spec:
+  # We want exactly 1 replica (copy) of our app running
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        # Define the container that Kubernetes should spin up
+        - name: backend-container
+          # The image location in the secure registry
+          image: cazcaravandecoreacr.azurecr.us/ai2c/caravan/mission-clock/backend:v0.0.1
+          ports:
+            # The port we exposed in our Python Dockerfile
+            - containerPort: 8000

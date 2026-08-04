@@ -1,0 +1,37 @@
+kind: ZarfPackageConfig
+metadata:
+  name: mission-clock-zarf
+  version: v0.0.1
+components:
+  # Component 1: The Backend Application
+  - name: backend
+    required: true
+    charts:
+      # Tells Zarf to include the backend Helm chart
+      - name: backend
+        namespace: mission-clock
+        localPath: ../helm/backend
+    images:
+      # HARD REQUIREMENT: You must list the image here so Zarf pulls it into the air-gapped package
+      - cazcaravandecoreacr.azurecr.us/ai2c/caravan/mission-clock/backend:v0.0.1
+
+  # Component 2: The Frontend Web Server
+  - name: frontend
+    required: true
+    charts:
+      # Tells Zarf to include the frontend Helm chart
+      - name: frontend
+        namespace: mission-clock
+        localPath: ../helm/frontend
+    images:
+      # Must list the frontend image for air-gap packaging
+      - cazcaravandecoreacr.azurecr.us/ai2c/caravan/mission-clock/frontend:v0.0.1
+
+  # Component 3: The UDS Network/SSO Rules
+  - name: uds-package
+    required: true
+    charts:
+      # Tells Zarf to package the network/SSO rules alongside the app
+      - name: package
+        namespace: mission-clock
+        localPath: ../helm/package

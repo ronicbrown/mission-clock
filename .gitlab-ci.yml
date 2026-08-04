@@ -112,3 +112,22 @@ include:
       expedition: 0
       environment: dev
       cdso_config_path: cdso_config.yml
+# ==============================================================
+# 4. JOB OVERRIDES (Fixing Execution Order)
+# ==============================================================
+
+# Replace 'review-mission-clock-backend' with the exact name of the job that fails
+review-mission-clock-backend:
+  needs:
+    - job: submit_sbom_to_overwatch
+      artifacts: true
+    - job: authorization
+      artifacts: true
+
+# If the frontend review job is also failing for the same reason, override it too:
+review-mission-clock-frontend:
+  needs:
+    - job: submit_sbom_to_overwatch
+      artifacts: true
+    - job: authorization
+      artifacts: true

@@ -1,13 +1,13 @@
 ---
 organization: Artificial Intelligence Integration Center (AI2C)
 software_name: Mission-Clock
-software_version: v0.1.0
+software_version: v1.0.0
 logo: docs/mission-clock-logo.png
 classification: CUI
 prepared_for:
   Organization: AI2C
-  Name: CW3 Vic Fernandez III
-  E-mail: victor.fernandez19.mil@army.mil
+  Name: 1LT Roni Brown
+  E-mail: roni.c.brown.mil@army.mil
   Address: 6425 Living Place, Pittsburgh 15206
 ---
 <!--
@@ -25,7 +25,8 @@ prepared_for:
 
 ## Responsible Organization
 (U) Who is the cognizant Authorizing Official (AO) for the organization?
-Mr. Joseph Welch
+
+(U) BG Hackler, George D.
 
 (U) Is your system funded by Title 10 or Title 50?
 | Title 10 | Title 50 |
@@ -39,12 +40,13 @@ Mr. Joseph Welch
 <!-- At a minimum, you should provide a Mission Owner, Mission Owner AO, ISO/PM and an ISMM, but may also include a ISSOs -->
 <!-- Indicate whether your application is under Title 10 or Title 50 with an X in the appropriate section -->
 
+
 | Name                     | Role                                | Phone Number   | Email                           |
 | ------------------------ | ----------------------------------- | -------------- | ------------------------------- |
 | MAJ Brian Schramke       | Mission Owner                       | (978) 654-3210 | brian.a.schramke.mil@army.mil   |
-| CPT Andrew Zeiss         | Information System Owner            | (978) 654-3210 | andrew.r.zeiss.mil@army.mil    |
+| CPT Andrew Zeiss         | Information System Owner            | (978) 654-3210 | andrew.r.zeiss.mil.mil@army.mil |
 | CW3 Victor Fernandez III | Information System Security Manager | (978) 654-3210 | victor.fernandez19.mil@army.mil |
-| CW2 Brian Pak            | Information System Security Officer | (978) 654-3210 | brian.y.pak.mil@army.mil   |
+| CW3 Carlos Gil           | Information System Security Officer | (978) 654-3210 | carlos.h.gil.mil@army.mil       |
 
 ```{=latex}
 \newpage

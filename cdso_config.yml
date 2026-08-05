@@ -5,7 +5,7 @@ organization: expedition-0
 security_group: ai2c
 
 # Specifies the target environment (dictates which security thresholds apply)
-deployment_level: DEVELOPMENT
+deployment_level: TEST
 
 # Defines the main application structure and tells the pipeline where to find Zarf/UDS files
 mission-clock:

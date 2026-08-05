@@ -10,7 +10,7 @@ doc:
   title: Tenant Agreement
   platform: CARAVAN
   app: Mission-Clock
-  version: 1.0.0
+  version: v1.0.0
   owner:
     name: Roni Brown
     email: roni.c.brown.mil@army.mil

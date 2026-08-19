@@ -1,7 +1,7 @@
 # ============================================================
 # Stage 1: Dependency Builder Staging
 # ============================================================
-FROM registry.cdso.army.mil/cdso/containers/approved-base/python_alpine:3.14 AS builder
+FROM registry.cdso.army.mil/cdso/containers/approved-base/python_alpine:3.13 AS builder
 
 WORKDIR /staging
 
@@ -18,7 +18,7 @@ RUN python -m pip install \
 # ============================================================
 # Stage 2: Final Secure Runtime Image
 # ============================================================
-FROM registry.cdso.army.mil/cdso/containers/approved-base/python_alpine:3.14
+FROM registry.cdso.army.mil/cdso/containers/approved-base/python_alpine:3.13
 
 LABEL description="FastAPI Backend for Mission Clock"
 

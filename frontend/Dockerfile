@@ -1,7 +1,7 @@
 # ============================================================
 # Use the custom CDSO Nginx base image found in the base-registry
 # ============================================================
-FROM registry.cdso.army.mil/cdso/containers/base-registry/nginx:1.24
+FROM registry.cdso.army.mil/cdso/containers/approved-base/nginx:1.31
 
 LABEL description="Hardened Nginx Static Web Server for Mission Clock Frontend"
 

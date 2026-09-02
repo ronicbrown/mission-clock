@@ -1,0 +1,226 @@
+% Start preamble.
+\documentclass[11pt]{article}
+
+% Import standard library packages.
+\usepackage{fancyhdr} % Provides header and footer options.
+\usepackage{geometry} % Provides margin options.
+\usepackage{graphicx} % Provides \includegraphics
+\usepackage{parskip}  % Provides paragraph spacing.
+\usepackage{setspace} % Provides spacing options via \setstretch.
+\usepackage{times}    % Provides font similar to Times New Roman.
+\usepackage{xcolor}   % Provides \definecolor.
+
+% Define the color of each classification.
+\definecolor{Unclassified}{HTML}{007A33} 
+\definecolor{CUI}{HTML}{502B85}
+\definecolor{Confidential}{HTML}{0033A0}
+\definecolor{Secret}{HTML}{C8102E}
+\definecolor{Top Secret}{HTML}{FF8C00}
+\definecolor{Top Secret//SCI}{HTML}{FCE83A}
+
+% Set default margins and line spacing.
+\geometry{margin=1in}
+\setstretch{1.15} 
+
+% Define the header and footer.
+\fancypagestyle{customheaderfooter}{%
+  \fancyhead[L]{}
+  \fancyhead[C]{\textbf{\Large{\textcolor{$classification$}{$classification$}}}}
+  \fancyhead[R]{}
+  \renewcommand{\headrulewidth}{0pt} % Remove the horizontal beneath the header.
+  \fancyfoot[L]{}
+  \fancyfoot[C]{\textbf{\Large{\textcolor{$classification$}{$classification$}}}}
+  \fancyfoot[R]{\thepage}
+}
+% End preamble.
+
+\pagestyle{customheaderfooter}
+\begin{document}
+  \begin{titlepage}
+    \centering
+    \vspace*{\fill}
+    \textbf{\huge $expedition.name$} \\
+    \vspace*{5mm}
+    {\huge $tenant.name$ v$tenant.version$} \\
+    $if(expedition.tenant.logo)$
+      \vspace*{5mm}
+      \begin{figure}[ht]
+        \centering
+        \includegraphics{$tenant.logo$}
+      \end{figure}
+      \vspace*{5mm}
+    $endif$
+    \vfill
+    \begin{minipage}[t]{\textwidth}
+      \raggedright
+      \textbf{Points of Contact}\\ 
+      ${expedition.owner.name}, ${expedition.owner.email} \\
+      ${tenant.owner.name}, ${tenant.owner.email}
+    \end{minipage}%
+    \begin{minipage}[t]{\textwidth}
+      \raggedleft
+      \textbf{Last Updated}\\
+      {\today}
+    \end{minipage}
+  \end{titlepage}
+
+  \newpage
+  \pagenumbering{gobble} % Hide page numbers for now.
+  \textbf{\Large Change Log} \\ [1ex]
+  \begin{tabular}{|l|l|l|}
+    \hline
+      \textbf{Date} & \textbf{Description} & \textbf{Author} \\
+    \hline
+      $for(change)$
+        $change.date$ & $change.description$ & $change.author$ \\
+    \hline
+    $endfor$
+  \end{tabular}
+
+  \newpage
+  \pagenumbering{gobble} % Hide page numbers for now.
+  \tableofcontents
+
+  \newpage
+  \pagenumbering{arabic}
+  \setcounter{page}{1}
+  \addcontentsline{toc}{section}{Introduction}
+  \subsection*{Introduction}
+  The purpose of this Tenant Agreement is to define the responsibilities and services provided by the $expedition.name$ platform to the $tenant.name$ application. This Tenant Agreement focuses solely on $expedition.name$'s services. $expedition.name$ is a platform within the $expedition.cloud.service-provider$ $expedition.cloud.region$ environment and its goal is to enable consistent and secure cloud onboarding of data science applications ISO AI2C's purpose of delivering AI solutions at speed in support of Army missions. $expedition.name$ will provide some functional services and support. PLEASE NOTE: This document will evolve over time, as new services, capabilities, coverage, and responsibilities are introduced, this document is reviewed annually. Any revision to this document will result in updates being sent to all Tenant Owners for situational awareness.
+  \addcontentsline{toc}{section}{Roles \& Responsibilities}
+  \section*{Roles \& Responsibilities}
+    Authorizing Official (AO) \\
+    $expedition.ao.name$ ($expedition.ao.email$)
+    \begin{itemize}
+      \item Ensures all appropriate RMF tasks are initiated and completed, with appropriate documentation, for assigned IS and Platform Information Technology (PIT) systems. Monitor and track overall execution of system-level Plans of Action \& Milestones (POA\&M), promote reciprocity.
+    \end{itemize}
+    Information System Owner (ISO) \\
+    $expedition.owner.name$ ($expedition.owner.email$)
+    \begin{itemize}
+      \item Holds statutory, management, or operational authority for specific information to establish the policies and procedures governing its generation, collection, processing, dissemination, and disposal of the system. 
+    \end{itemize}
+    Program Manager (PM) \\
+    $expedition.owner.name$ ($expedition.owner.email$)
+    \begin{itemize}
+      \item Responsible for the overall procurement, development, integration, modification, or operation and maintenance of the IT system.
+    \end{itemize}
+    Information System Security Manager (ISSM) \\
+    $expedition.issm.name$ ($expedition.issm.email$)
+    \begin{itemize}
+      \item Serves as a principal advisor on all matters, technical and security, involving the security of is the $expedition.name$ system while ensuring physical and environmental protection, personnel security, incident handling, and security training and awareness are completed.
+    \end{itemize}
+    Information System Security Officer (ISSO) \\
+    $expedition.isso.name$ ($expedition.isso.email$)
+   \begin{itemize}
+      \item Responsible for maintaining the appropriate operational security posture for an IS or program.
+    \end{itemize}
+    System Administrator (SA) \\
+    $expedition.sysadmin.name$ ($expedition.sysadmin.email$)
+    \begin{itemize}
+      \item Responsible for the team that applies technical functionality and security on IS. 
+    \end{itemize}
+    Tenant Owner \\
+    $tenant.owner.name$ ($tenant.owner.email$)
+    \begin{itemize}
+      \item The Tenant Owner is responsible for the security within their application, even if $expedition.name$ provides foundational security services (e.g., "The Tenant Owner is responsible for securing their application code and data.").
+      \item The Tenant Owner is responsible for scanning their application code and remediating findings and vulnerabilities. Critical and CAT Is need to have mitigations in place, and comments prepared for a POA\&M. The comments should indicate the specific mitigations in place that lower the risk. Residual Risk should follow the NETCOM guidance for Risk Analysis if not fully remediated. Threshold not specific but documentation requirements will be set. 
+      \item The Tenant Owner is responsible for ensuring their application complies with all relevant regulations and policies to include ECMA enforced Azure Policy and Application specific STIGs.
+      \item The Tenant Owner is responsible for monitoring their application's performance and responding to alerts. Some alerts may trigger $expedition.name$ team responses. For example, if an Azure Alert is triggered that goes to the $expedition.name$ ISSO.
+      \item The Tenant Owner must notify $expedition.name$ of any planned changes to their application that may impact $expedition.name$ services. 
+      \item The Tenant Owner must notify $expedition.name$ of version updates to applications that include feature additions and new capabilities.
+      \item The Tenant Owner must notify $expedition.name$ if new versions require new infrastructure or updates to the $expedition.name$ system itself.
+    \end{itemize}
+    
+  \newpage
+  \addcontentsline{toc}{section}{Services Provided}
+  \section*{Services Provided}
+    Resources 
+    \begin{itemize}
+      \item If Compute resources are required for onboarding applications, the Tenant Owner will notify the $expedition.name$ team.
+      \item $expedition.name$ manages the AKS Platform, however, applications that leverage containers would maintain their own namespace.
+    \end{itemize}
+    Storage
+    \begin{itemize}
+      \item Storage will be provided as needed and as approved on the approved Hardware and Software list. For example: Azure Storage accounts, Azure PostgreSQL Flexible Server, Azure MySQL, Azure SQL.
+    \end{itemize}
+    Networking
+    \begin{itemize} 
+      \item	$expedition.name$ will provide a dedicated subnet as needed within the $expedition.name$ VNet, with appropriate Network Security Group rules.
+    \end{itemize}
+    Identity, Credential, and Access Management (ICAM)
+    \begin{itemize}
+      \item $expedition.name$ leverages Azure Entra ID for integrated authentication, and KeyCloak. Application access will be managed through EAMS-A or KeyCloak.
+    \end{itemize}
+    Monitoring \& Logging
+    \begin{itemize}
+      \item $expedition.name$ provides integration with Azure Monitor for logging and alerting. 
+      \item Application logs will be stored in a dedicated Log Analytics workspace.
+      \item Review ECMA MOU for additional monitoring and logging capabilities.
+    \end{itemize}
+    Security Services
+    \begin{itemize}
+      \item $expedition.name$ interacts with cArmy, ARCYBER and C5ISR for security services and monitoring.
+    \end{itemize}
+    Data Services
+    \begin{itemize}
+      \item $expedition.name$ data backup and recovery procedures are outlined in the $expedition.name$ Contingency Plan. 
+    \end{itemize}
+    Cost Allocation
+    \begin{itemize}
+      \item Although there is no specific cost allocation or chargeback, tagging will be used to help identify anomalies and namespace labeling in AKS could set the stage for chargebacks if needed. Tenant Owners will be notified before any chargeback changes are put in place.
+    \end{itemize}
+
+  \newpage
+  \addcontentsline{toc}{section}{Support \& Escalation}
+  \section*{Support \& Escalation}    
+    Support Channels
+    \begin{itemize}
+      \item Use the ticketing system to create trouble tickets, change requests, or general questions. 
+    \end{itemize}
+
+  \newpage
+  \addcontentsline{toc}{section}{Change Control}
+  \section*{Change Control}    
+    Process for Changes
+    \begin{itemize}
+      \item All changes must follow the process outlined in the Change Management Plan. 
+    \end{itemize}
+    Impact Assessment
+    \begin{itemize}
+      \item A Security Impact Assessment is required if the proposed change includes a Security Relevant Change. 
+    \end{itemize}
+
+  \newpage
+  \addcontentsline{toc}{section}{Related Documentation \& Resources}
+  \section*{Related Documentation \& Resources}    
+    ECMA Tenant MOA
+    \begin{itemize}
+      \item For information regarding services provided directly by the ECMA cArmy environment, please refer to the ECMA Tenant Memorandum of Agreement, available at [Link to ECMA MOA].  
+    \end{itemize}
+    $expedition.name$ Documentation
+    \begin{itemize}
+      \item Link to any relevant $expedition.name$ documentation (e.g., API documentation, best practices guides).
+      \item Azure Government Documentation: Link to relevant Azure Government documentation.
+    \end{itemize}
+
+  \newpage
+  \addcontentsline{toc}{section}{Signatures}
+  \section*{Signatures}
+    The undersigned representatives have reviewed this Tenant Agreement and agree to abide by the terms as identified in this document. This document shall be reviewed not later than twelve months from  date of signature.
+    \vspace{2in} 
+    % Do not delete the empty line below. %
+
+    \noindent
+    \begin{minipage}[t]{0.4\textwidth}
+      \rule{2in}{0.4pt} \\ 
+      $expedition.owner.name$ \\
+      Expedition Owner
+    \end{minipage}
+    \hspace{0.1\textwidth}
+    \begin{minipage}[t]{0.4\textwidth}
+      \rule{2in}{0.4pt} \\ 
+      $tenant.owner.name$ \\
+      Tenant Owner
+    \end{minipage}
+
+\end{document}

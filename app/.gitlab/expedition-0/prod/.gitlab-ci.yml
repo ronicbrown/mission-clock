@@ -1,0 +1,73 @@
+# Define all pipelines to include.
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "parent_pipeline"'
+      when: always
+    - if: '$CI_PIPELINE_SOURCE == "pipeline"'
+      when: always
+    - when: always
+
+
+stages:
+  - pre-build
+  - pre-test
+  - build
+  - post-build
+  - post-test
+  - review
+  - clean
+  - operate
+  - deliver
+
+
+include:
+  # --------------------------------------------------------------
+  # Backend container image.
+  # --------------------------------------------------------------
+
+  # Continuous Integration pipeline for the backend container.
+  - component: $CI_SERVER_FQDN/cdso/cdso/review@main
+    inputs:
+      name: backend
+      pipeline_type: application-container
+      cdso_config_path: .gitlab/expedition-0/prod/cdso_config.yml
+
+  # Continuous Delivery pipeline for the backend container.
+  - component: $CI_SERVER_FQDN/ai2c/caravan/pipelines/deliver@main
+    inputs:
+      name: backend
+      pipeline_type: container
+      environment: prod
+      cdso_config_path: .gitlab/expedition-0/prod/cdso_config.yml
+      application_name: "mission-clock"
+
+  # --------------------------------------------------------------
+  # Frontend container image.
+  # --------------------------------------------------------------
+
+  # Continuous Integration pipeline for the frontend container.
+  - component: $CI_SERVER_FQDN/cdso/cdso/review@main
+    inputs:
+      name: frontend
+      pipeline_type: application-container
+      cdso_config_path: .gitlab/expedition-0/prod/cdso_config.yml
+
+  # Continuous Delivery pipeline for the frontend container.
+  - component: $CI_SERVER_FQDN/ai2c/caravan/pipelines/deliver@main
+    inputs:
+      name: frontend
+      pipeline_type: container
+      environment: prod
+      cdso_config_path: .gitlab/expedition-0/prod/cdso_config.yml
+      application_name: "mission-clock"
+  
+  # ----------------------------------------------------------
+  # APPROVAL // CI
+  # ----------------------------------------------------------
+  # Continuous Integration pipeline for the app's Software Design Document.
+  - component: $CI_SERVER_FQDN/cdso/cdso/review@main
+    inputs:
+      name: mission-clock
+      pipeline_type: sdd
+      cdso_config_path: .gitlab/expedition-0/prod/cdso_config.yml

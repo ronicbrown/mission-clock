@@ -1,0 +1,16 @@
+# Python
+.venv
+__pycache__
+*.sqlite3
+.env
+
+# Explicitly allow the file at the project root
+!/.env
+
+# Javascript/Typescript
+node_modules
+dist
+*.zst
+
+# Miscellaneous/Settings Files
+db-password.txt

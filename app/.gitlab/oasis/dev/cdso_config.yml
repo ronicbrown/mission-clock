@@ -1,0 +1,29 @@
+organization: oasis
+security_group: cpe_c2in
+deployment_level: DEVELOPMENT
+
+backend:
+  project_type: container
+  dockerfile_folder: backend
+  container_lifespan: PERSISTENT
+  connection_context: INTERNAL
+
+  zap:
+   service_ports:
+     - 5432
+   gitlab_services:
+     - name: registry.cdso.army.mil/expedition-0/postgresql/database:548010
+       alias: database
+   scanned_image_variables:
+     DB_HOST: database
+     DB_NAME: postgres
+     DB_USER: postgres
+     DB_PASS: postgres
+     DB_PORT: "5432"
+
+
+frontend:
+  project_type: container
+  dockerfile_folder: frontend
+  container_lifespan: PERSISTENT
+  connection_context: EXTERNAL

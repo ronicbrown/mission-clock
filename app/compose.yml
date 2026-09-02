@@ -1,0 +1,52 @@
+services:
+  backend:
+    profiles: [all, backend]
+    build: backend
+    image: mission-clock/backend:latest
+    container_name: mission-clock-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/mission-clock/settings/dev/.env
+    volumes:
+      - ./backend:/home/mission-clock
+
+  database:
+    profiles: [all, database]
+    build: database
+    image: mission-clock/database:latest
+    container_name: mission-clock-database
+    user: ${DB_USER}
+    secrets:
+      - db-password
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=mission-clock
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+    expose:
+      - 5432
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    profiles: [all, frontend]
+    build:
+      context: frontend
+      args:
+        VITE_BACKEND_URL: http://localhost:8000
+    image: mission-clock/frontend:latest
+    container_name: mission-clock-frontend
+    ports:
+      - "80:5173"
+    env_file:
+      - .env
+
+volumes:
+  db-data:
+secrets:
+  db-password:
+    file: db-password.txt

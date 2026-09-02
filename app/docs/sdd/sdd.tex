@@ -1,0 +1,176 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{longtable,booktabs,array}
+\usepackage{multirow}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\usepackage{fancyhdr}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\ifLuaTeX
+  \usepackage{luacolor}
+  \usepackage[soul]{lua-ul}
+\else
+  \usepackage{soul}
+\fi
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+hidelinks,
+pdfcreator={LaTeX via pandoc}}
+\setmainfont{Liberation Serif}
+\setsansfont{Liberation Sans}
+\RequirePackage{datetime}
+\newdateformat{mildate}{\twodigit\THEDAY\ \monthname[\THEMONTH] \THEYEAR}
+\defaultfontfeatures{Mapping=tex-text} % To support LaTeX ``" quotes.
+\author{$author$}
+\date{\today}
+\definecolor{Unclassified}{HTML}{007A33} % Green
+\definecolor{CUI}{HTML}{502B85}
+\definecolor{Confidential}{HTML}{0033A0}
+\definecolor{Secret}{HTML}{C8102E}
+\definecolor{Top Secret}{HTML}{FF8C00}
+\definecolor{Top Secret//SCI}{HTML}{FCE83A}
+\usepackage[margin=1in, top=1.0in, bottom=1.0in, headheight=10pt, headsep=0.5in]{geometry} % Adjust page layout
+\fancypagestyle{sdd}{%
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyhead[L,R]{}
+  \fancyhead[C]{\textbf{\Large{\textcolor{$classification$}{$classification$}}}}
+  \fancyfoot[C]{\textbf{\Large{\textcolor{$classification$}{$classification$}}}}
+}
+\pagestyle{sdd}
+\begin{document}
+\begin{titlepage}
+  \thispagestyle{sdd}
+  \centering
+  \vspace*{\fill}
+  {\huge $organization$} \\
+  \vspace*{7mm}
+  \textbf{\huge Container Software Design Document (SDD)} \\
+  \vspace*{7mm}
+  \textbf{\huge For} \\
+  \vspace*{5mm}
+  \emph{\textbf{\huge ($software_name$)}} \\
+  \vspace*{5mm}
+  \textbf{\Large Version \emph{$software_version$}} \\
+  
+  $if(logo)$
+  \vspace*{5mm}
+  \begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{$logo$}
+  \end{figure}
+  \vspace*{5mm}
+  $endif$
+
+  \emph{\textbf{\Large \mildate\today}}
+
+  \linespread{1.5}
+  \selectfont
+  $if(prepared_for)$
+  \textbf{\large Prepared for:} \\
+  $if(prepared_for.Organization)$
+  $prepared_for.Organization$ \\
+  $endif$
+  $if(prepared_for.Name)$
+  $prepared_for.Name$ \\
+  $endif$
+  $if(prepared_for.E-mail)$
+  $prepared_for.E-mail$ \\
+  $endif$
+  $if(prepared_for.Address)$
+  $prepared_for.Address$ \\
+  $endif$
+  $endif$
+  
+  \linespread{1.5}
+  \begin{flushright}
+  $if(controlled_by)$
+  \hspace{9cm}\textbf{\large Controlled by:} \\
+  $if(controlled_by.control_org)$
+  \hspace{9cm}Controlled by: $controlled_by.control_org$ \\
+  $endif$
+  $if(controlled_by.category)$
+  \hspace{9cm}Category: $controlled_by.category$ \\
+  $endif$
+  $if(controlled_by.distribution_dissemination_controls)$
+  \hspace{9cm}Distribution/Dissemination Controls: $controlled_by.distribution_dissemination_controls$ \\
+  $endif$
+  $if(controlled_by.POC)$
+  \hspace{9cm}POC: $controlled_by.POC$ \\
+  $endif$
+  $endif$
+  \end{flushright}
+  \vspace*{\fill}
+  \vspace*{\fill}
+\end{titlepage}
+
+\newpage
+\tableofcontents
+\newpage
+
+$body$
+
+\end{document}

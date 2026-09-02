@@ -1,0 +1,38 @@
+variables:
+  PLATFORM:
+    description: "Which PLATFORM do you want to target?"
+    options:
+      - "Expedition 0"
+      - "Oasis"
+    value: "Expedition 0"
+
+# Map the UI display name to the actual directory name
+workflow:
+  rules:
+    - if: '$PLATFORM == "Expedition 0"'
+      variables:
+        PLATFORM_DIR: "expedition-0"
+    - if: '$PLATFORM == "Oasis"'
+      variables:
+        PLATFORM_DIR: "oasis"
+    - when: always
+
+# The root pipeline only needs a stage for triggering the child pipelines
+stages:
+  - run-environments
+
+# The Matrix Trigger
+# This generates 3 manual jobs in the UI: one for dev, test, and prod.
+deliver_targets:
+  stage: run-environments
+  when: manual
+  parallel:
+    matrix:
+      - ENVIRONMENT: 
+          - dev
+          - test
+          - prod
+  trigger:
+    # Dynamically injects the folder and environment path
+    include: .gitlab/$PLATFORM_DIR/$ENVIRONMENT/.gitlab-ci.yml
+    strategy: depend

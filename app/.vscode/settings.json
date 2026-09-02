@@ -1,0 +1,23 @@
+{
+    "editor.formatOnSave": true,
+    "[python]": {
+        // Additional Python specific formatting and isort configuration
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "always"
+        },
+    },
+    // isort configuration
+    "isort.args": [
+        "--settings-file",
+        "./pyproject.toml"
+    ],
+    "cSpell.words": [
+        "isort",
+        "FIRSTPARTY",
+        "LOCALFOLDER",
+        "STDLIB",
+        "THIRDPARTY"
+    ]
+}

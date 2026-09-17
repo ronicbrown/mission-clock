@@ -1,28 +1,33 @@
-"""
-Settings specific to deploying this template in AI2C's Expedition 0 using a PostgreSQL Flexible Server
-"""
+sample files 
 
-import os
+# uds/zarf/helm/backend/values.yaml
 
-from ..base import *
+---
+namespace: squidfall
+replicaCount: 1
+image: 
+  pullPolicy: Always
+  registry: "###ZARF_CONST_ACR_NAME###"
+  repository: ai2c/application-templates/react-django-app/backend
+  tag: "###ZARF_VAR_VERSION###"
+service: 
+  type: ClusterIP
+  name: backend
+  port: 8000
+nodeSelector:
+  agentPool: rucksack
 
-DEBUG = True
 
-ALLOWED_HOSTS = ["ai.army.mil"]
 
-# Ensure you add a SECRET_KEY value to the environment of the deployed container!
-SECRET_KEY = os.environ["SECRET_KEY"]
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+# uds/zarf/helm/backend/Chart.yaml
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ["DB_NAME"],
-        "USER": os.environ["DB_USER"],
-        "PASSWORD": os.environ["DB_PASS"],
-        "HOST": os.environ["DB_HOST"],
-        "PORT": os.environ["DB_PORT"],
-    }
-}
+---
+# Chart metadata.
+apiVersion: v2
+type: application
+version: v1.0.0 
+
+# Component metadata.
+name: backend
+appVersion: v1.0.0

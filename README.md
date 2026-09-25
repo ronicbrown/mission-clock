@@ -1,64 +1,55 @@
-ronicbrown@CAZVW0FVAA3-59K:~/message-board/app/.gitlab/expedition-0/prod$ cd ~/message-board/app
+ronicbrown@CAZVW0FVAA3-59K:~/message-board$ cd ~/message-board
 
-grep -RIn \
-  "DB_HOST\|DB_NAME\|DB_USER\|DB_PASS\|DB_PORT\|SECRET_KEY" \
-  backend/message-board/settings
-backend/message-board/settings/dev/.env.backup:1:DB_NAME="message-board"
-backend/message-board/settings/dev/.env.backup:2:DB_USER="postgres"
-backend/message-board/settings/dev/.env.backup:3:DB_PASS="UVNLdTIFzxYle0U5"
-backend/message-board/settings/dev/.env.backup:4:DB_HOST="database"
-backend/message-board/settings/dev/.env.backup:5:DB_PORT="5432"
-backend/message-board/settings/dev/.env.backup:6:DB_NAME="message-board"
-backend/message-board/settings/dev/.env.backup:7:DB_USER="postgres"
-backend/message-board/settings/dev/.env.backup:8:DB_PASS="OjWwmOmSm7CaVdyZ"
-backend/message-board/settings/dev/.env.backup:9:DB_HOST="database"
-backend/message-board/settings/dev/.env.backup:10:DB_PORT="5432"
-backend/message-board/settings/dev/.env.backup:11:DB_NAME="message-board"
-backend/message-board/settings/dev/.env.backup:12:DB_USER="postgres"
-backend/message-board/settings/dev/.env.backup:13:DB_PASS="RZQczfKg3luYqSnb"
-backend/message-board/settings/dev/.env.backup:14:DB_HOST="database"
-backend/message-board/settings/dev/.env.backup:15:DB_PORT="5432"
-backend/message-board/settings/dev/.env.backup:16:DB_NAME="message-board"
-backend/message-board/settings/dev/.env.backup:17:DB_USER="postgres"
-backend/message-board/settings/dev/.env.backup:18:DB_PASS="Hf8sN3byk10Sx4B6"
-backend/message-board/settings/dev/.env.backup:19:DB_HOST="database"
-backend/message-board/settings/dev/.env.backup:20:DB_PORT="5432"
-backend/message-board/settings/dev/.env.backup:21:DB_NAME="message-board"
-backend/message-board/settings/dev/.env.backup:22:DB_USER="postgres"
-backend/message-board/settings/dev/.env.backup:23:DB_PASS="TSwC4NGQEIcEvCA1"
-backend/message-board/settings/dev/.env.backup:24:DB_HOST="database"
-backend/message-board/settings/dev/.env.backup:25:DB_PORT="5432"
-backend/message-board/settings/dev/local_postgres.py:18:SECRET_KEY = "django-insecure-u8^#*!f@4%gpodaniz_7*x8vv^92d!5nccb_1-m!msjr9#lp*6"
-backend/message-board/settings/dev/local_postgres.py:26:        "NAME": os.environ["DB_NAME"],
-backend/message-board/settings/dev/local_postgres.py:27:        "USER": os.environ["DB_USER"],
-backend/message-board/settings/dev/local_postgres.py:28:        "PASSWORD": os.environ["DB_PASS"],
-backend/message-board/settings/dev/local_postgres.py:29:        "HOST": os.environ["DB_HOST"],
-backend/message-board/settings/dev/local_postgres.py:30:        "PORT": os.environ["DB_PORT"],
-backend/message-board/settings/dev/postgres_flexible_server.py:13:# Ensure you add a SECRET_KEY value to the environment of the deployed container!
-backend/message-board/settings/dev/postgres_flexible_server.py:14:SECRET_KEY = os.environ["SECRET_KEY"]
-backend/message-board/settings/dev/postgres_flexible_server.py:22:        "NAME": os.environ["DB_NAME"],
-backend/message-board/settings/dev/postgres_flexible_server.py:23:        "USER": os.environ["DB_USER"],
-backend/message-board/settings/dev/postgres_flexible_server.py:24:        "PASSWORD": os.environ["DB_PASS"],
-backend/message-board/settings/dev/postgres_flexible_server.py:25:        "HOST": os.environ["DB_HOST"],
-backend/message-board/settings/dev/postgres_flexible_server.py:26:        "PORT": os.environ["DB_PORT"],
-backend/message-board/settings/dev/.env:1:DB_NAME="message-board"
-backend/message-board/settings/dev/.env:2:DB_USER="postgres"
-backend/message-board/settings/dev/.env:3:DB_PASS="aojHf8TKXcZVmo3O"
-backend/message-board/settings/dev/.env:4:DB_HOST="database"
-backend/message-board/settings/dev/.env:5:DB_PORT="5432"
-backend/message-board/settings/dev/local.py:12:SECRET_KEY = "django-insecure-u8^#*!f@4%gpodaniz_7*x8vv^92d!5nccb_1-m!msjr9#lp*6"
-backend/message-board/settings/test/postgres_flexible_server.py:13:# Ensure you add a SECRET_KEY value to the environment of the deployed container!
-backend/message-board/settings/test/postgres_flexible_server.py:14:SECRET_KEY = os.environ["SECRET_KEY"]
-backend/message-board/settings/test/postgres_flexible_server.py:22:        "NAME": os.environ["DB_NAME"],
-backend/message-board/settings/test/postgres_flexible_server.py:23:        "USER": os.environ["DB_USER"],
-backend/message-board/settings/test/postgres_flexible_server.py:24:        "PASSWORD": os.environ["DB_PASS"],
-backend/message-board/settings/test/postgres_flexible_server.py:25:        "HOST": os.environ["DB_HOST"],
-backend/message-board/settings/test/postgres_flexible_server.py:26:        "PORT": os.environ["DB_PORT"],
-backend/message-board/settings/prod/postgres_flexible_server.py:20:# Ensure you add a SECRET_KEY value to the environment of the deployed container!
-backend/message-board/settings/prod/postgres_flexible_server.py:21:SECRET_KEY = os.environ["SECRET_KEY"]
-backend/message-board/settings/prod/postgres_flexible_server.py:29:        "NAME": os.environ["DB_NAME"],
-backend/message-board/settings/prod/postgres_flexible_server.py:30:        "USER": os.environ["DB_USER"],
-backend/message-board/settings/prod/postgres_flexible_server.py:31:        "PASSWORD": os.environ["DB_PASS"],
-backend/message-board/settings/prod/postgres_flexible_server.py:32:        "HOST": os.environ["DB_HOST"],
-backend/message-board/settings/prod/postgres_flexible_server.py:33:        "PORT": os.environ["DB_PORT"],
-ronicbrown@CAZVW0FVAA3-59K:~/message-board/app$
+grep -RInE \
+  "SECRET_KEY|DB_HOST|DB_NAME|DB_USER|DB_PASS|DB_PORT|message-board-backend-secrets" \
+  .gitlab-ci.yml app/.gitlab \
+  2>/dev/null
+app/.gitlab/expedition-0/dev/cdso_config.yml:18:     DB_HOST: database
+app/.gitlab/expedition-0/dev/cdso_config.yml:19:     DB_NAME: postgres
+app/.gitlab/expedition-0/dev/cdso_config.yml:20:     DB_USER: postgres
+app/.gitlab/expedition-0/dev/cdso_config.yml:21:     DB_PASS: postgres
+app/.gitlab/expedition-0/dev/cdso_config.yml:22:     DB_PORT: "5432"
+app/.gitlab/expedition-0/test/cdso_config.yml:26:     DB_HOST: database
+app/.gitlab/expedition-0/test/cdso_config.yml:27:     DB_NAME: postgres
+app/.gitlab/expedition-0/test/cdso_config.yml:28:     DB_USER: postgres
+app/.gitlab/expedition-0/test/cdso_config.yml:29:     DB_PASS: postgres
+app/.gitlab/expedition-0/test/cdso_config.yml:30:     DB_PORT: "5432"
+app/.gitlab/expedition-0/prod/cdso_config.yml:26:     DB_HOST: database
+app/.gitlab/expedition-0/prod/cdso_config.yml:27:     DB_NAME: postgres
+app/.gitlab/expedition-0/prod/cdso_config.yml:28:     DB_USER: postgres
+app/.gitlab/expedition-0/prod/cdso_config.yml:29:     DB_PASS: postgres
+app/.gitlab/expedition-0/prod/cdso_config.yml:30:     DB_PORT: "5432"
+app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:27:            - name: SECRET_KEY
+app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:30:                  name: message-board-backend-secrets
+app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:31:                  key: SECRET_KEY
+app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:33:            - name: DB_NAME
+app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:36:                  name: message-board-backend-secrets
+app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:37:                  key: DB_NAME
+app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:39:            - name: DB_USER
+app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:42:                  name: message-board-backend-secrets
+app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:43:                  key: DB_USER
+app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:45:            - name: DB_PASS
+app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:48:                  name: message-board-backend-secrets
+app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:49:                  key: DB_PASS
+app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:51:            - name: DB_HOST
+app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:54:                  name: message-board-backend-secrets
+app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:55:                  key: DB_HOST
+app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:57:            - name: DB_PORT
+app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:60:                  name: message-board-backend-secrets
+app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:61:                  key: DB_PORT
+app/.gitlab/oasis/dev/cdso_config.yml:18:     DB_HOST: database
+app/.gitlab/oasis/dev/cdso_config.yml:19:     DB_NAME: postgres
+app/.gitlab/oasis/dev/cdso_config.yml:20:     DB_USER: postgres
+app/.gitlab/oasis/dev/cdso_config.yml:21:     DB_PASS: postgres
+app/.gitlab/oasis/dev/cdso_config.yml:22:     DB_PORT: "5432"
+app/.gitlab/oasis/test/cdso_config.yml:27:     DB_HOST: database
+app/.gitlab/oasis/test/cdso_config.yml:28:     DB_NAME: postgres
+app/.gitlab/oasis/test/cdso_config.yml:29:     DB_USER: postgres
+app/.gitlab/oasis/test/cdso_config.yml:30:     DB_PASS: postgres
+app/.gitlab/oasis/test/cdso_config.yml:31:     DB_PORT: "5432"
+app/.gitlab/oasis/prod/cdso_config.yml:26:     DB_HOST: database
+app/.gitlab/oasis/prod/cdso_config.yml:27:     DB_NAME: postgres
+app/.gitlab/oasis/prod/cdso_config.yml:28:     DB_USER: postgres
+app/.gitlab/oasis/prod/cdso_config.yml:29:     DB_PASS: postgres
+app/.gitlab/oasis/prod/cdso_config.yml:30:     DB_PORT: "5432"
+ronicbrown@CAZVW0FVAA3-59K:~/message-board$

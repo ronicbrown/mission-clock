@@ -1,4 +1,4 @@
-ronicbrown@CAZVW0FVAA3-59K:~/message-board$ cd ~/message-board
+ronicbrown@CAZVW0FVAA3-59K:~/message-board/app$ cd ~/message-board
 
 grep -RInE \
   "SECRET_KEY|DB_HOST|DB_NAME|DB_USER|DB_PASS|DB_PORT|message-board-backend-secrets" \

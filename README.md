@@ -1,55 +1,70 @@
-ronicbrown@CAZVW0FVAA3-59K:~/message-board/app$ cd ~/message-board
+ronicbrown@CAZVW0FVAA3-59K:~/message-board$ cd ~/message-board
 
-grep -RInE \
-  "SECRET_KEY|DB_HOST|DB_NAME|DB_USER|DB_PASS|DB_PORT|message-board-backend-secrets" \
-  .gitlab-ci.yml app/.gitlab \
-  2>/dev/null
-app/.gitlab/expedition-0/dev/cdso_config.yml:18:     DB_HOST: database
-app/.gitlab/expedition-0/dev/cdso_config.yml:19:     DB_NAME: postgres
-app/.gitlab/expedition-0/dev/cdso_config.yml:20:     DB_USER: postgres
-app/.gitlab/expedition-0/dev/cdso_config.yml:21:     DB_PASS: postgres
-app/.gitlab/expedition-0/dev/cdso_config.yml:22:     DB_PORT: "5432"
-app/.gitlab/expedition-0/test/cdso_config.yml:26:     DB_HOST: database
-app/.gitlab/expedition-0/test/cdso_config.yml:27:     DB_NAME: postgres
-app/.gitlab/expedition-0/test/cdso_config.yml:28:     DB_USER: postgres
-app/.gitlab/expedition-0/test/cdso_config.yml:29:     DB_PASS: postgres
-app/.gitlab/expedition-0/test/cdso_config.yml:30:     DB_PORT: "5432"
-app/.gitlab/expedition-0/prod/cdso_config.yml:26:     DB_HOST: database
-app/.gitlab/expedition-0/prod/cdso_config.yml:27:     DB_NAME: postgres
-app/.gitlab/expedition-0/prod/cdso_config.yml:28:     DB_USER: postgres
-app/.gitlab/expedition-0/prod/cdso_config.yml:29:     DB_PASS: postgres
-app/.gitlab/expedition-0/prod/cdso_config.yml:30:     DB_PORT: "5432"
-app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:27:            - name: SECRET_KEY
-app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:30:                  name: message-board-backend-secrets
-app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:31:                  key: SECRET_KEY
-app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:33:            - name: DB_NAME
-app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:36:                  name: message-board-backend-secrets
-app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:37:                  key: DB_NAME
-app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:39:            - name: DB_USER
-app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:42:                  name: message-board-backend-secrets
-app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:43:                  key: DB_USER
-app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:45:            - name: DB_PASS
-app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:48:                  name: message-board-backend-secrets
-app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:49:                  key: DB_PASS
-app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:51:            - name: DB_HOST
-app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:54:                  name: message-board-backend-secrets
-app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:55:                  key: DB_HOST
-app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:57:            - name: DB_PORT
-app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:60:                  name: message-board-backend-secrets
-app/.gitlab/expedition-0/prod/uds/zarf/helm/backend/templates/deployment.yaml:61:                  key: DB_PORT
-app/.gitlab/oasis/dev/cdso_config.yml:18:     DB_HOST: database
-app/.gitlab/oasis/dev/cdso_config.yml:19:     DB_NAME: postgres
-app/.gitlab/oasis/dev/cdso_config.yml:20:     DB_USER: postgres
-app/.gitlab/oasis/dev/cdso_config.yml:21:     DB_PASS: postgres
-app/.gitlab/oasis/dev/cdso_config.yml:22:     DB_PORT: "5432"
-app/.gitlab/oasis/test/cdso_config.yml:27:     DB_HOST: database
-app/.gitlab/oasis/test/cdso_config.yml:28:     DB_NAME: postgres
-app/.gitlab/oasis/test/cdso_config.yml:29:     DB_USER: postgres
-app/.gitlab/oasis/test/cdso_config.yml:30:     DB_PASS: postgres
-app/.gitlab/oasis/test/cdso_config.yml:31:     DB_PORT: "5432"
-app/.gitlab/oasis/prod/cdso_config.yml:26:     DB_HOST: database
-app/.gitlab/oasis/prod/cdso_config.yml:27:     DB_NAME: postgres
-app/.gitlab/oasis/prod/cdso_config.yml:28:     DB_USER: postgres
-app/.gitlab/oasis/prod/cdso_config.yml:29:     DB_PASS: postgres
-app/.gitlab/oasis/prod/cdso_config.yml:30:     DB_PORT: "5432"
+echo "=== COOKIECUTTER CDSO CONFIG ==="
+git show origin/cookiecuttertemp:app/.gitlab/expedition-0/prod/cdso_config.yml | tail -20
+
+echo "=== COOKIECUTTER ZARF ==="
+git show origin/cookiecuttertemp:app/.gitlab/expedition-0/prod/uds/zarf/zarf.yaml | head -40
+=== COOKIECUTTER CDSO CONFIG ===
+     # and is not derived from user input, so this is not an SSRF sink.
+     # https://nginx.org/en/docs/http/ngx_http_core_module.html#internal
+     - app.rules.community.generic.nginx.security.missing-internal
+  mitigations:
+  - CVE-2026-2673: >-
+      DESCRIPTION: An OpenSSL TLS 1.3 server may fail to negotiate the expected preferred key exchange group when its key exchange group configuration includes the default by using the 'DEFAULT' keyword.
+      MITIGATION: Not applicable in the current frontend image usage. The reported vulnerable artifacts are base-image OpenSSL libraries, but this container does not terminate HTTPS/TLS in its repository-managed nginx configuration. No nginx ssl listener, certificate, private key, or OpenSSL group-selection configuration is present. The issue is specific to TLS 1.3 server-side group negotiation using the DEFAULT keyword. Risk accepted pending a patched approved base image.
+  - CVE-2026-85091: >-
+      DESCRIPTION: zlib versions 1.3.1.2 through 1.3.2 contain a heap buffer overflow in gz_vacate() when processing non-blocking gzwrite() operations with stale external buffer pointers.
+      MITIGATION: The frontend does not call gzwrite(), gzprintf(), gzvprintf(), or perform non-blocking gzip stream writes. NGINX gzip compression is not configured or enabled by this application, so the vulnerable code path is not exercised. The approved Alpine repository currently provides zlib 1.3.2-r0 with no newer package available. The package will be updated when a patched version becomes available in the approved base image.
+
+message-board:
+  project_type: sdd
+  sdd_path: sdd.md
+  zarf_directory: app/.gitlab/expedition-0/prod/uds/zarf
+  uds_directory: app/.gitlab/expedition-0/prod/uds
+
+message-board-tad:
+  project_type: sdd
+  tad_path: tad.md
+=== COOKIECUTTER ZARF ===
+kind: ZarfPackageConfig
+
+metadata:
+  name: message-board-zarf
+  version: v1.0.0
+
+
+variables:
+  - name: VERSION
+    description: "The version of bundle, package, and images"
+    default: "v1.0.0"
+
+  - name: DOMAIN
+    description: "Cluster domain"
+    default: "ai.army.mil"
+
+  - name: SECRET_KEY
+    description: "Django production secret key"
+    prompt: true
+    sensitive: true
+
+  - name: DB_NAME
+    description: "Production PostgreSQL database name"
+    prompt: true
+
+  - name: DB_USER
+    description: "Production PostgreSQL username"
+    prompt: true
+    sensitive: true
+
+  - name: DB_PASS
+    description: "Production PostgreSQL password"
+    prompt: true
+    sensitive: true
+
+  - name: DB_HOST
+    description: "Production PostgreSQL hostname"
+    prompt: true
+
+  - name: DB_PORT
 ronicbrown@CAZVW0FVAA3-59K:~/message-board$
